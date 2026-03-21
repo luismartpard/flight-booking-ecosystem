@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# IDEs
+.idea
+.vscode
+*.iml
+
+# Build
+target
+**/target
+build
+**/build
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+!**/.env.example

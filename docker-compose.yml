@@ -1,0 +1,74 @@
+services:
+  postgres:
+    image: postgis/postgis:17-3.5
+    container_name: geography-postgis
+    restart: always
+    environment:
+      POSTGRES_DB: geography
+      POSTGRES_USER: ${DB_USER:-geography}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-geography}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-geography} -d geography"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  geography-service:
+    build:
+      context: .
+    container_name: geography-service
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_URL: ${DB_URL:-jdbc:postgresql://postgres:5432/geography}
+      DB_USER: ${DB_USER:-geography}
+      DB_PASSWORD: ${DB_PASSWORD:-geography}
+    ports:
+      - "8080:8080"
+
+  sonardb:
+    image: postgres:15
+    container_name: sonarqube-db
+    restart: always
+    environment:
+      POSTGRES_DB: sonar
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - sonarqube_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sonar -d sonar"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: geography-sonarqube
+    restart: always
+    depends_on:
+      sonardb:
+        condition: service_healthy
+    ports:
+      - "9000:9000"
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonardb:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
+volumes:
+  postgres_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  sonarqube_db:
