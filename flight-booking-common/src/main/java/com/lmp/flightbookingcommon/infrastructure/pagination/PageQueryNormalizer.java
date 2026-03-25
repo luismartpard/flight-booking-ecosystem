@@ -6,7 +6,7 @@ public final class PageQueryNormalizer {
 
     private PageQueryNormalizer() {}
 
-    public static <T> PageQuery<T> toPageNormalize(
+    public static <T> PageQuery<T> normalize(
             PageQuery<T> pageQuery,
             int defaultPage,
             int defaultSize,
