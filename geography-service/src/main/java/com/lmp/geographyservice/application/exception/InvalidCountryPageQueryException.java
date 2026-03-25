@@ -2,8 +2,6 @@ package com.lmp.geographyservice.application.exception;
 
 import com.lmp.flightbookingcommon.common.exception.BadRequestException;
 
-import java.util.Objects;
-
 public class InvalidCountryPageQueryException extends BadRequestException {
 
     private final Object[] args;

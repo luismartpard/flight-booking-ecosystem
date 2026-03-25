@@ -1,8 +1,8 @@
 package com.lmp.geographyservice.infrastructure.out.persistence.adapter;
 
+import com.lmp.flightbookingcommon.infrastructure.pagination.BuildSort;
 import com.lmp.flightbookingcommon.infrastructure.pagination.PageQuery;
 import com.lmp.flightbookingcommon.infrastructure.pagination.PageResult;
-import com.lmp.flightbookingcommon.infrastructure.pagination.SortDirection;
 import com.lmp.geographyservice.application.port.out.CountryRepositoryPort;
 import com.lmp.geographyservice.application.query.CountrySearchQuery;
 import com.lmp.geographyservice.application.query.CountrySortField;
@@ -15,7 +15,6 @@ import com.lmp.geographyservice.infrastructure.out.persistence.specification.Cou
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -53,7 +52,7 @@ public class CountryPersistenceAdapter implements CountryRepositoryPort {
         Pageable pageable = PageRequest.of(
                 pageQuery.page(),
                 pageQuery.size(),
-                buildSort(pageQuery)
+                BuildSort.toBuildSort(pageQuery, CountrySortField.ISO2)
         );
 
         Page<Country> page = countryRepositoryJpa.findAll(specification, pageable)
@@ -79,18 +78,6 @@ public class CountryPersistenceAdapter implements CountryRepositoryPort {
                 iso2,
                 travelStatus
         );
-    }
-
-    private Sort buildSort(PageQuery<CountrySortField> pageQuery) {
-        Sort.Direction direction = pageQuery.sortDirection() == SortDirection.DESC
-                ? Sort.Direction.DESC
-                : Sort.Direction.ASC;
-
-        CountrySortField sortField = pageQuery.sortBy() == null
-                ? CountrySortField.DEFAULT_NAME
-                : pageQuery.sortBy();
-
-        return Sort.by(direction, sortField.getProperty());
     }
 
 }

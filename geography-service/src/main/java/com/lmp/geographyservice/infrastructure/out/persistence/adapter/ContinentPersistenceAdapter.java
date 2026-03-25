@@ -1,8 +1,8 @@
 package com.lmp.geographyservice.infrastructure.out.persistence.adapter;
 
+import com.lmp.flightbookingcommon.infrastructure.pagination.BuildSort;
 import com.lmp.flightbookingcommon.infrastructure.pagination.PageQuery;
 import com.lmp.flightbookingcommon.infrastructure.pagination.PageResult;
-import com.lmp.flightbookingcommon.infrastructure.pagination.SortDirection;
 import com.lmp.geographyservice.application.port.out.ContinentRepositoryPort;
 import com.lmp.geographyservice.application.query.ContinentSortField;
 import com.lmp.geographyservice.domain.model.Continent;
@@ -11,7 +11,6 @@ import com.lmp.geographyservice.infrastructure.out.persistence.repository.Contin
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -37,7 +36,7 @@ public class ContinentPersistenceAdapter implements ContinentRepositoryPort {
         Pageable pageable = PageRequest.of(
                 pageQuery.page(),
                 pageQuery.size(),
-                buildSort(pageQuery)
+                BuildSort.toBuildSort(pageQuery, ContinentSortField.CODE)
         );
 
         Page<Continent> page = continentRepository.findAll(pageable)
@@ -55,22 +54,6 @@ public class ContinentPersistenceAdapter implements ContinentRepositoryPort {
                 page.hasPrevious()
         );
 
-    }
-
-    private Sort buildSort(PageQuery<ContinentSortField> pageQuery) {
-
-        Sort.Direction direction = pageQuery.sortDirection() == SortDirection.DESC
-                ? Sort.Direction.DESC
-                : Sort.Direction.ASC;
-
-        return Sort.by(direction, mapSortField(pageQuery.sortBy()));
-
-    }
-
-    private String mapSortField(ContinentSortField sortField) {
-        return switch (sortField) {
-            case CODE -> "code";
-        };
     }
 
 }

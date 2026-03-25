@@ -1,8 +1,9 @@
 package com.lmp.geographyservice.application.query;
 
+import com.lmp.flightbookingcommon.infrastructure.pagination.SortField;
 import com.lmp.geographyservice.application.exception.InvalidCountryPageQueryException;
 
-public enum CountrySortField {
+public enum CountrySortField implements SortField {
 
     ISO2("iso2"),
     ISO3("iso3"),
