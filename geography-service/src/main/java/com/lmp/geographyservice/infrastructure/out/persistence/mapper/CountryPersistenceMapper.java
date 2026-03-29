@@ -14,7 +14,7 @@ public final class CountryPersistenceMapper {
             return null;
         }
 
-        return new Country(
+        return Country.of(
                 entity.getIso2(),
                 entity.getIso3(),
                 entity.getIsoNumeric(),

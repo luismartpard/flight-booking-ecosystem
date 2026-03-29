@@ -20,7 +20,7 @@ public class Country {
 
     private TravelStatus travelStatus;
 
-    public Country(String iso2, String iso3, Integer isoNumeric, String defaultName, String phoneCode, String currencyCode, TravelStatus travelStatus) {
+    private Country(String iso2, String iso3, Integer isoNumeric, String defaultName, String phoneCode, String currencyCode, TravelStatus travelStatus) {
         this.iso2 = iso2;
         this.iso3 = iso3;
         this.isoNumeric = isoNumeric;
@@ -28,6 +28,10 @@ public class Country {
         this.phoneCode = phoneCode;
         this.currencyCode = currencyCode;
         this.travelStatus = travelStatus;
+    }
+
+    public static Country of(String iso2, String iso3, Integer isoNumeric, String defaultName, String phoneCode, String currencyCode, TravelStatus travelStatus) {
+        return new Country(iso2, iso3, isoNumeric, defaultName, phoneCode, currencyCode, travelStatus);
     }
 
     public String getIso2() {

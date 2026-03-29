@@ -18,21 +18,17 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.Immutable;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity
 @Getter
-@Immutable
-@NoArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "countries", schema = "geography")
 public class CountryJpaEntity {
 
@@ -41,26 +37,22 @@ public class CountryJpaEntity {
     @Column(name = "id_country")
     private Long id;
 
-    @NonNull
     @NotBlank
     @Size(min = 2, max = 2)
     @Column(name = "iso2", nullable = false, unique = true, length = 2)
     private String iso2;
 
-    @NonNull
     @NotBlank
     @Size(min = 3, max = 3)
     @Column(name = "iso3", nullable = false, unique = true, length = 3)
     private String iso3;
 
-    @NonNull
     @NotNull
     @Min(1)
     @Max(999)
     @Column(name = "iso_numeric", nullable = false, unique = true)
     private Integer isoNumeric;
 
-    @NonNull
     @NotBlank
     @Size(min = 1, max = 100)
     @Column(name = "default_name", nullable = false, unique = true, length = 100)
@@ -69,13 +61,11 @@ public class CountryJpaEntity {
     @Column(name = "phone_code", length = 10)
     private String phoneCode;
 
-    @NonNull
     @NotBlank
     @Size(min = 3, max = 3)
     @Column(name = "currency_code", nullable = false, unique = true, length = 3)
     private String currencyCode;
 
-    @NonNull
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "travel_status", nullable = false, unique = true, length = 20)
@@ -90,6 +80,20 @@ public class CountryJpaEntity {
 
     @Column(name = "updated_at")
     private OffsetDateTime updatedAt;
+
+    private CountryJpaEntity(String iso2, String iso3, Integer isoNumeric, String defaultName, String phoneCode, String currencyCode, TravelStatus travelStatus) {
+        this.iso2 = iso2;
+        this.iso3 = iso3;
+        this.isoNumeric = isoNumeric;
+        this.defaultName = defaultName;
+        this.phoneCode = phoneCode;
+        this.currencyCode = currencyCode;
+        this.travelStatus = travelStatus;
+    }
+
+    public static CountryJpaEntity of(String iso2, String iso3, Integer isoNumeric, String defaultName, String phoneCode, String currencyCode, TravelStatus travelStatus) {
+        return new CountryJpaEntity(iso2, iso3, isoNumeric, defaultName, phoneCode, currencyCode, travelStatus);
+    }
 
     @PreUpdate
     public void preUpdate() {

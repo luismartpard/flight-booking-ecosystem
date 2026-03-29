@@ -39,7 +39,9 @@ class GetContinentByCodeUseTest {
         when(continentRepositoryPort.findByCode("EU"))
                 .thenReturn(Optional.of(europe));
 
-        Continent expected = new Continent(europe.getCode());
+        Continent expected = Continent.of(
+                europe.getCode(), europe.getName()
+        );
 
         Continent result = getContinentByCodeUseCaseImpl.getContinentByCode("EU");
 

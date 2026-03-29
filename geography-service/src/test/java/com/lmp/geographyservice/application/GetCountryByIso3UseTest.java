@@ -41,7 +41,7 @@ class GetCountryByIso3UseTest {
                 .thenReturn(Optional.of(spain));
 
 
-        Country expected = new Country(spain.getIso2(), spain.getIso3(), spain.getIsoNumeric(),
+        Country expected = Country.of(spain.getIso2(), spain.getIso3(), spain.getIsoNumeric(),
                 spain.getDefaultName(), spain.getPhoneCode(), spain.getCurrencyCode(), spain.getTravelStatus());
 
         Country result = getCountryByIso3UseCaseImpl.getCountryByIso3("ESP");

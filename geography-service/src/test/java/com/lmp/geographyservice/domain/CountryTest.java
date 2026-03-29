@@ -12,7 +12,7 @@ class CountryTest {
     @Test
     void should_create_country_required_constructor() {
 
-        Country country = new Country("ES", "ESP", 724,
+        Country country = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
         assertEquals("ES", country.getIso2());
@@ -27,7 +27,7 @@ class CountryTest {
     @Test
     void should_return_false_when_compared_with_null() {
 
-        Country country = new Country("ES", "ESP", 724,
+        Country country = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
         assertNotEquals(null, country);
@@ -37,7 +37,7 @@ class CountryTest {
     @Test
     void should_return_false_when_compared_with_other_class() {
 
-        Country country = new Country("ES", "ESP", 724,
+        Country country = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
         Object other = new Object();
@@ -49,10 +49,10 @@ class CountryTest {
     @Test
     void should_return_false_when_code_is_different() {
 
-        Country spain = new Country("ES", "ESP", 724,
+        Country spain = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
-        Country france = new Country("FR", "FRA", 250,
+        Country france = Country.of("FR", "FRA", 250,
                 "France", "+33", "EUR", TravelStatus.AVAILABLE);
 
         assertNotEquals(spain, france);
@@ -62,7 +62,7 @@ class CountryTest {
     @Test
     void should_be_equal_to_itself() {
 
-        Country country = new Country("ES", "ESP", 724,
+        Country country = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
         Country sameReference = country;
@@ -74,10 +74,10 @@ class CountryTest {
     @Test
     void should_have_different_hashCode_when_objects_are_equal()  {
 
-        Country spain = new Country("ES", "ESP", 724,
+        Country spain = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
-        Country spain2 = new Country("ES", "ESP", 724,
+        Country spain2 = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
         assertEquals(spain.hashCode(), spain2.hashCode());
@@ -86,10 +86,10 @@ class CountryTest {
     @Test
     void should_have_different_hashCode_when_objects_are_not_equal() {
 
-        Country spain = new Country("ES", "ESP", 724,
+        Country spain = Country.of("ES", "ESP", 724,
                 "Spain", "+34", "EUR", TravelStatus.AVAILABLE);
 
-        Country france = new Country("FR", "FRA", 250,
+        Country france = Country.of("FR", "FRA", 250,
                 "France", "+33", "EUR", TravelStatus.AVAILABLE);
 
         assertNotEquals(spain.hashCode(), france.hashCode());

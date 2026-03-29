@@ -11,8 +11,9 @@ class CountryJpaEntityTest {
     @Test
     void should_create_entity_with_required_constructor() {
 
-        CountryJpaEntity countryJpaEntity = new CountryJpaEntity(
-                "ES", "ESP", 724, "Spain", "EUR", TravelStatus.AVAILABLE
+        CountryJpaEntity countryJpaEntity = CountryJpaEntity.of(
+                "ES", "ESP", 724, "Spain", "+34",
+                "EUR", TravelStatus.AVAILABLE
         );
 
         assertEquals("ES", countryJpaEntity.getIso2());
@@ -27,12 +28,14 @@ class CountryJpaEntityTest {
     @Test
     void should_not_be_equal_when_id_different() {
 
-        CountryJpaEntity countryJpaEntity = new CountryJpaEntity(
-                "ES", "ESP", 724, "Spain", "EUR", TravelStatus.AVAILABLE
+        CountryJpaEntity countryJpaEntity = CountryJpaEntity.of(
+                "ES", "ESP", 724, "Spain", "+34",
+                "EUR", TravelStatus.AVAILABLE
         );
 
-        CountryJpaEntity countryJpaEntity2 = new CountryJpaEntity(
-                "FR", "FRA", 724, "France", "EUR", TravelStatus.AVAILABLE
+        CountryJpaEntity countryJpaEntity2 = CountryJpaEntity.of(
+                "FR", "FRA", 724, "France", "+33",
+                "EUR", TravelStatus.AVAILABLE
         );
 
         setId(countryJpaEntity, 1L);
@@ -45,8 +48,9 @@ class CountryJpaEntityTest {
     @Test
     void should_not_be_equal_when_null() {
 
-        CountryJpaEntity countryJpaEntity = new CountryJpaEntity(
-                "ES", "ESP", 724, "Spain", "EUR", TravelStatus.AVAILABLE
+        CountryJpaEntity countryJpaEntity = CountryJpaEntity.of(
+                "ES", "ESP", 724, "Spain", "+34",
+                "EUR", TravelStatus.AVAILABLE
         );
 
         assertNotEquals(null, countryJpaEntity);
@@ -56,8 +60,9 @@ class CountryJpaEntityTest {
     @Test
     void should_update_updateAt_on_PreUpdate() {
 
-        CountryJpaEntity countryJpaEntity = new CountryJpaEntity(
-                "ES", "ESP", 724, "Spain", "EUR", TravelStatus.AVAILABLE
+        CountryJpaEntity countryJpaEntity = CountryJpaEntity.of(
+                "ES", "ESP", 724, "Spain", "+34",
+                "EUR", TravelStatus.AVAILABLE
         );
 
         countryJpaEntity.preUpdate();
@@ -72,7 +77,7 @@ class CountryJpaEntityTest {
             field.setAccessible(true);
             field.set(country, id);
         } catch (Exception e) {
-            throw new  RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 

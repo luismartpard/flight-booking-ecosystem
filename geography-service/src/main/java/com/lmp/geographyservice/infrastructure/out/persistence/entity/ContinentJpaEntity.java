@@ -7,10 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Immutable;
 
@@ -20,8 +19,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Immutable
-@NoArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name= "continents", schema = "geography")
 public class ContinentJpaEntity {
 
@@ -30,15 +28,26 @@ public class ContinentJpaEntity {
     @Column(name = "id_continent")
     private Long id;
 
-    @NonNull
     @Column(name = "code", nullable = false, unique = true, length = 2)
     private String code;
+
+    @Column(name = "name", nullable = false, length = 50)
+    private String name;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
     private OffsetDateTime createdAt;
 
     @Column(name = "updated_at")
     private OffsetDateTime updatedAt;
+
+    private ContinentJpaEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public static ContinentJpaEntity of(String code, String name) {
+        return new ContinentJpaEntity(code, name);
+    }
 
     @PreUpdate
     public void preUpdate() {

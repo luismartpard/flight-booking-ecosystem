@@ -15,6 +15,7 @@ public final class CountryJpaEntityTestFactory {
         private String iso3 = "ESP";
         private Integer isoNumeric = 724;
         private String defaultName = "Spain";
+        private String phoneCode = "+34";
         private String currencyCode = "EUR";
         private TravelStatus travelStatus = TravelStatus.AVAILABLE;
 
@@ -38,6 +39,11 @@ public final class CountryJpaEntityTestFactory {
             return this;
         }
 
+        public Builder  phoneCode(String phoneCode) {
+            this.phoneCode = phoneCode;
+            return this;
+        }
+
         public Builder currencyCode(String currencyCode) {
             this.currencyCode = currencyCode;
             return this;
@@ -49,7 +55,7 @@ public final class CountryJpaEntityTestFactory {
         }
 
         public CountryJpaEntity build() {
-            return new CountryJpaEntity(iso2, iso3, isoNumeric, defaultName, currencyCode, travelStatus);
+            return CountryJpaEntity.of(iso2, iso3, isoNumeric, defaultName, phoneCode, currencyCode, travelStatus);
         }
 
     }

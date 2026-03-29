@@ -40,13 +40,13 @@ class ContinentControllerTest {
     @Test
     void getContinents_ValidCode_returns200() throws Exception {
 
-        Continent continent = new Continent("EU");
+        Continent continent = Continent.of("EU", "Europe");
 
         when(getContinentByCodeUseCase.getContinentByCode("EU"))
                 .thenReturn(continent);
 
         when(continentWebMapper.toResponse(continent))
-                .thenReturn(new ContinentResponse(continent.getCode()));
+                .thenReturn(new ContinentResponse(continent.getCode(), continent.getName()));
 
         mockMvc.perform(get("/api/v1/continents/code/EU"))
                 .andExpect(status().isOk())
@@ -60,10 +60,10 @@ class ContinentControllerTest {
     @Test
     void getContinents_withAscSort_returns200() throws Exception {
 
-        Continent continent = new Continent("EU");
+        Continent continent = Continent.of("EU", "Europe");
 
         ContinentResponse response = new ContinentResponse(
-                continent.getCode()
+                continent.getCode(), continent.getName()
         );
 
         PageResult<Continent> pageResponse =
@@ -81,7 +81,8 @@ class ContinentControllerTest {
                         .param("sort", "ASC"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements").value(1))
-                .andExpect(jsonPath("$.content[0].code").value("EU"));
+                .andExpect(jsonPath("$.content[0].code").value("EU"))
+                .andExpect(jsonPath("$.content[0].name").value("Europe"));
 
         verify(getContinentsUseCase).getContinents(any(PageQuery.class));
         verifyNoMoreInteractions(getContinentByCodeUseCase);
@@ -91,10 +92,10 @@ class ContinentControllerTest {
     @Test
     void getContinents_withDescSort_returns200() throws Exception {
 
-        Continent continent = new Continent("EU");
+        Continent continent = Continent.of("EU", "Europe");
 
         ContinentResponse response = new ContinentResponse(
-                continent.getCode()
+                continent.getCode(), continent.getName()
         );
 
         PageResult<Continent> pageResponse =
@@ -112,7 +113,8 @@ class ContinentControllerTest {
                         .param("sort", "DESC"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements").value(1))
-                .andExpect(jsonPath("$.content[0].code").value("EU"));
+                .andExpect(jsonPath("$.content[0].code").value("EU"))
+                .andExpect(jsonPath("$.content[0].name").value("Europe"));
 
         verify(getContinentsUseCase).getContinents(any(PageQuery.class));
         verifyNoMoreInteractions(getContinentByCodeUseCase);

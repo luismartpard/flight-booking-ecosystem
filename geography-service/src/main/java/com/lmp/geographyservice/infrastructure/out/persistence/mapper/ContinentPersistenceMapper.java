@@ -13,8 +13,9 @@ public final class ContinentPersistenceMapper {
             return null;
         }
 
-        return new Continent(
-                entity.getCode()
+        return Continent.of(
+                entity.getCode(),
+                entity.getName()
         );
 
     }
