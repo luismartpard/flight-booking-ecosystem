@@ -23,7 +23,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ContinentPersistenceAdapterTest {
@@ -37,8 +38,8 @@ class ContinentPersistenceAdapterTest {
     @Test
     void should_return_continent_code() {
 
-        ContinentJpaEntity continentJpaEntity = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continentJpaEntity = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         when(continentRepositoryJpa.findByCode("EU"))
@@ -48,14 +49,15 @@ class ContinentPersistenceAdapterTest {
 
         assertTrue(continent.isPresent());
         assertEquals("EU", continent.get().getCode());
+        assertEquals("Europe", continent.get().getName());
 
     }
 
     @Test
     void should_return_page_of_continents() {
 
-        ContinentJpaEntity continentJpaEntity = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continentJpaEntity = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         Page<ContinentJpaEntity> page =
@@ -74,14 +76,15 @@ class ContinentPersistenceAdapterTest {
 
         assertEquals(1, result.content().size());
         assertEquals("EU", result.content().getFirst().getCode());
+        assertEquals("Europe", result.content().getFirst().getName());
 
     }
 
     @Test
     void should_use_default_sort_when_sortBy_is_desc() {
 
-        ContinentJpaEntity continentJpaEntity = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continentJpaEntity = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         Page<ContinentJpaEntity> page = new PageImpl<>(
@@ -104,8 +107,8 @@ class ContinentPersistenceAdapterTest {
     @Test
     void should_use_default_sort_when_sortBy_is_asc() {
 
-        ContinentJpaEntity continentJpaEntity = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continentJpaEntity = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         Page<ContinentJpaEntity> page = new PageImpl<>(

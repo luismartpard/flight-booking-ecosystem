@@ -13,14 +13,20 @@ public final class ContinentTestFactory {
     public static class Builder {
 
         private String code = "EU";
+        private String name = "Europe";
 
         public Builder code(String code) {
             this.code = code;
             return this;
         }
 
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
         public Continent build() {
-            return new Continent(code);
+            return Continent.of(code, name);
         }
 
     }

@@ -14,8 +14,9 @@ class CountryPersistenceMapperTest {
     @Test
     void should_map_entity_toDomain() {
 
-        CountryJpaEntity countryJpaEntity = new CountryJpaEntity(
-                "ES", "ESP", 724, "Spain", "EUR", TravelStatus.AVAILABLE
+        CountryJpaEntity countryJpaEntity = CountryJpaEntity.of(
+                "ES", "ESP", 724, "Spain", "+34",
+                "EUR", TravelStatus.AVAILABLE
         );
 
         Country country = CountryPersistenceMapper.toDomain(countryJpaEntity);
@@ -28,7 +29,6 @@ class CountryPersistenceMapperTest {
         assertEquals(TravelStatus.AVAILABLE, country.getTravelStatus());
 
     }
-
 
     @Test
     void should_return_null_when_entity_is_null() {

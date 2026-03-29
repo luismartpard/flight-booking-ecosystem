@@ -10,23 +10,24 @@ class ContinentJpaEntityTest {
     @Test
     void should_create_entity_with_required_constructor() {
 
-        ContinentJpaEntity continentJpaEntity = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continentJpaEntity = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         assertEquals("EU", continentJpaEntity.getCode());
+        assertEquals("Europe", continentJpaEntity.getName());
 
     }
 
     @Test
     void should_not_be_equal_when_id_different() {
 
-        ContinentJpaEntity continent1 = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continent1 = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
-        ContinentJpaEntity continent2 = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continent2 = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         setId(continent1, 1L);
@@ -39,8 +40,8 @@ class ContinentJpaEntityTest {
     @Test
     void should_not_be_equal_when_null() {
 
-        ContinentJpaEntity continent = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continent = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         assertNotEquals(null, continent);
@@ -50,8 +51,8 @@ class ContinentJpaEntityTest {
     @Test
     void should_update_updatedAt_on_preUpdate() {
 
-        ContinentJpaEntity continent = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continent = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         continent.preUpdate();

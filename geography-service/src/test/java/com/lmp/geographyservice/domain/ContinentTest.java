@@ -11,7 +11,9 @@ class ContinentTest {
     @Test
     void should_create_continent_required_constructor() {
 
-        Continent continent = new Continent("EU");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
 
         assertEquals("EU", continent.getCode());
 
@@ -20,7 +22,9 @@ class ContinentTest {
     @Test
     void should_return_false_when_compared_with_null() {
 
-        Continent continent = new Continent("EU");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
 
         assertNotEquals(null, continent);
 
@@ -29,7 +33,9 @@ class ContinentTest {
     @Test
     void should_return_false_when_compared_with_other_class() {
 
-        Continent continent = new Continent("EU");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
 
         Object other = new Object();
 
@@ -40,8 +46,12 @@ class ContinentTest {
     @Test
     void should_return_true_when_code_is_same() {
 
-        Continent continent = new Continent("EU");
-        Continent continent2 = new Continent("EU");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
+        Continent continent2 = Continent.of(
+                "EU", "Europe"
+        );
 
         assertEquals(continent, continent2);
 
@@ -50,8 +60,12 @@ class ContinentTest {
     @Test
     void should_return_false_when_code_is_different() {
 
-        Continent continent = new Continent("EU");
-        Continent continent2 = new Continent("AF");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
+        Continent continent2 = Continent.of(
+                "AF", "Africa"
+        );
 
         assertNotEquals(continent, continent2);
 
@@ -60,7 +74,9 @@ class ContinentTest {
     @Test
     void should_be_equal_to_itself() {
 
-        Continent continent = new Continent("EU");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
 
         Continent sameReference = continent;
 
@@ -70,8 +86,12 @@ class ContinentTest {
     @Test
     void should_have_same_hashCode_when_objects_are_equal() {
 
-        Continent continent = new Continent("EU");
-        Continent continent2 = new Continent("EU");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
+        Continent continent2 = Continent.of(
+                "EU", "Europe"
+        );
 
         assertEquals(continent.hashCode(), continent2.hashCode());
 
@@ -80,8 +100,12 @@ class ContinentTest {
     @Test
     void should_have_different_hashcode_when_objects_are_not_equal() {
 
-        Continent continent = new Continent("EU");
-        Continent continent2 = new Continent("AF");
+        Continent continent = Continent.of(
+                "EU", "Europe"
+        );
+        Continent continent2 = Continent.of(
+                "AF", "Africa"
+        );
 
         assertNotEquals(continent.hashCode(), continent2.hashCode());
 

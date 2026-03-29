@@ -13,10 +13,10 @@ public class CountryFixtures {
     }
 
     public CountryJpaEntity createCountry(String iso2, String iso3, Integer isoNumeric,
-                                          String defaultName,
+                                          String defaultName, String phoneCode,
                                           String currencyCode, TravelStatus travelStatus) {
-        CountryJpaEntity countryJpaEntity = new CountryJpaEntity(iso2, iso3,
-                isoNumeric, defaultName, currencyCode, travelStatus);
+        CountryJpaEntity countryJpaEntity = CountryJpaEntity.of(iso2, iso3,
+                isoNumeric, defaultName, phoneCode, currencyCode, travelStatus);
         return countryRepositoryJpa.saveAndFlush(countryJpaEntity);
 
     }

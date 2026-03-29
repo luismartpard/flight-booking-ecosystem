@@ -35,7 +35,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @Import(GlobalExceptionHandler.class)
 @WebMvcTest(CountryController.class)
 class CountryControllerTest {
@@ -63,7 +62,7 @@ class CountryControllerTest {
 
     @BeforeEach
     void setUp() {
-        spain = new Country("ES", "ESP", 724, "Spain", "+34", "EUR",
+        spain = Country.of("ES", "ESP", 724, "Spain", "+34", "EUR",
                 TravelStatus.AVAILABLE);
         spainResponse = new CountryResponse("ES", "ESP", 724, "Spain", "+34", "EUR",
                 TravelStatus.AVAILABLE);
@@ -338,6 +337,5 @@ class CountryControllerTest {
         verify(updateCountryTravelStatusUseCase, never()).updateCountryTravelStatus(anyString(), any());
 
     }
-
 
 }

@@ -13,17 +13,22 @@ public final class ContinentJpaEntityTestFactory {
     public static class Builder {
 
         private String code = "EU";
+        private String name = "Europe";
 
         public Builder code(String code) {
             this.code = code;
             return this;
         }
 
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
         public ContinentJpaEntity build() {
-            return new ContinentJpaEntity(code);
+            return ContinentJpaEntity.of(code, name);
         }
 
     }
-
 
 }

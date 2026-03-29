@@ -13,8 +13,8 @@ class ContinentPersistenceMapperTest {
     @Test
     void should_map_entity_to_domain() {
 
-        ContinentJpaEntity continentJpaEntity = new ContinentJpaEntity(
-                "EU"
+        ContinentJpaEntity continentJpaEntity = ContinentJpaEntity.of(
+                "EU", "Europe"
         );
 
         Continent continent = ContinentPersistenceMapper.toDomain(continentJpaEntity);

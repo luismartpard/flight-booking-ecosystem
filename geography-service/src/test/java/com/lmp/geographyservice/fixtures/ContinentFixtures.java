@@ -11,12 +11,11 @@ public class ContinentFixtures {
         this.continentRepositoryJpa = continentRepositoryJpa;
     }
 
-    public ContinentJpaEntity createContinent(String code) {
-        ContinentJpaEntity continent = new ContinentJpaEntity(code);
+    public ContinentJpaEntity createContinent(String code, String name) {
+        ContinentJpaEntity continent = ContinentJpaEntity.of(code, name);
 
         return continentRepositoryJpa.saveAndFlush(continent);
 
     }
-
 
 }

@@ -55,7 +55,7 @@ public final class CountryTestFactory {
         }
 
         public Country build() {
-            return new Country(iso2, iso3, isoNumeric, defaultName, phoneCode, currencyCode, travelStatus);
+            return Country.of(iso2, iso3, isoNumeric, defaultName, phoneCode, currencyCode, travelStatus);
         }
 
     }
