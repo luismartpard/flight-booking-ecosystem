@@ -1,17 +1,19 @@
 package com.lmp.flightbookingcommon.common.exception;
 
-import lombok.Getter;
+import java.util.Map;
 
-@Getter
-public class BadRequestException extends RuntimeException {
+public class BadRequestException extends ApplicationException {
 
-    private final String messageKey;
-    private final transient Object[] args;
+    public BadRequestException(String messageKey) {
+        super(messageKey);
+    }
 
     public BadRequestException(String messageKey, Object... args) {
-        super(messageKey);
-        this.messageKey = messageKey;
-        this.args = args;
+        super(messageKey, args);
+    }
+
+    public BadRequestException(String messageKey, Object[] args, Map<String, Object> params) {
+        super(messageKey, args, params);
     }
 
 }
