@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: flight-booking-common
+  messages:
+    basename: messages
+    encoding: UTF-8

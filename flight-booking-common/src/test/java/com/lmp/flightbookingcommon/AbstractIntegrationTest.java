@@ -5,6 +5,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
@@ -14,18 +15,15 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class AbstractIntegrationTest {
 
     private static final DockerImageName POSTGIS_IMAGE = DockerImageName
-            .parse("postgis/postgis:15-3.4")
+            .parse("postgis/postgis:17-3.5")
             .asCompatibleSubstituteFor("postgres");
 
+    @Container
     static final PostgreSQLContainer<?> postgres =
             new PostgreSQLContainer<>(POSTGIS_IMAGE)
                     .withDatabaseName("test")
                     .withUsername("test")
                     .withPassword("test");
-
-    static {
-        postgres.start();
-    }
 
     @DynamicPropertySource
     static void overrideProps(DynamicPropertyRegistry registry) {

@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 public record ErrorResponse(
 
         int status,
+        String error,
         String messageKey,
         String message,
         String path,
@@ -12,11 +13,13 @@ public record ErrorResponse(
 
 ) {
 
-    public static ErrorResponse of(int status, String messageKey, String message,
-                                   String path) {
-
-        return new ErrorResponse(status, messageKey, message, path, OffsetDateTime.now());
+    public static ErrorResponse of(
+            int status,
+            String error,
+            String messageKey,
+            String message,
+            String path) {
+        return new ErrorResponse(status, error, messageKey, message, path, OffsetDateTime.now());
     }
-
 
 }
